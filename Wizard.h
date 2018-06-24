@@ -10,12 +10,19 @@ class Wizard : public Player {
 
 public:
     /**
-     * Constructor:
-     * @param name - Name of the wizard.
-     * @param weapon - Weapon of the wizard.
-     * @param range - Attacking range.
-     */
+ * Constructor:
+ * @param name - Name of the wizard.
+ * @param weapon - Weapon of the wizard.
+ * @param range - Attacking range.
+ */
     Wizard(string const& name,Weapon const& weapon, int range);
+    /**
+     * canAttack
+     * @param player - A player to attack.
+     * @return
+     * True if the wizard can attack, else false.
+     */
+    bool canAttack (const Player& player) const override;
 
 };
 
