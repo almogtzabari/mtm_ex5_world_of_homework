@@ -4,8 +4,8 @@
 
 #include "Weapon.h"
 #include <iostream>
-#include <string>
 using std::ostream;
+using std::string;
 
 //-----------------------------------------------------------------------//
 //                          CLASS PLAYER:                                //
@@ -229,4 +229,4 @@ friend bool operator>(const Player& player1,const Player& player2);
 friend bool operator==(const Player& player1, const Player& player2);
 };
 
-#endif //MTM_EX4_CALL_OF_MATAM_DUTIES_PLAYER_H
+#endif //MTM_EX5_WORLD_OF_HOMEWORK_PLAYER_H

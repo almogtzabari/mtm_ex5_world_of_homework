@@ -215,4 +215,4 @@ GameStatus fight(const char* playerName1, const char* playerName2);
 friend ostream& operator<<(ostream& os, Game& game);
 };
 
-#endif //MTM_EX4_CALL_OF_MATAM_DUTIES_GAME_H
+#endif //MTM_EX5_WORLD_OF_HOMEWORK_GAME_H
