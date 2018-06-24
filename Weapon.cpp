@@ -8,16 +8,13 @@
  * @param target - Enum which represents the target of the weapon.
  * @param hitStrength - Strength of the weapon.
  */
-Weapon::Weapon(const char* name, Target target, int hitStrength) :
-        name(nullptr),target(target),hitStrength(hitStrength){
-    this->name=new char [strlen(name)+1];
-    strcpy(this->name,name);
-}
+Weapon::Weapon(const string name, Target target, int hitStrength) :
+        name(name),target(target),hitStrength(hitStrength){}
 
 /**
  * Default constructor
  */
-Weapon::Weapon() : name(nullptr){
+Weapon::Weapon() : name(){
 }
 
 /**
@@ -26,17 +23,13 @@ Weapon::Weapon() : name(nullptr){
  * @param weapon - Weapon to copy.
  */
 Weapon::Weapon(const Weapon& weapon) :
-        name(new char[(strlen(weapon.name)+1)]),target(weapon.target),
-        hitStrength(weapon.hitStrength){
-    strcpy(name,weapon.name);
-}
+        name(weapon.name),target(weapon.target),
+        hitStrength(weapon.hitStrength){}
 
 /**
  * Destructor
  */
-Weapon::~Weapon() {
-    delete[] name;
-}
+Weapon::~Weapon() {}
 
 /**
  * Operator=
@@ -46,12 +39,7 @@ Weapon::~Weapon() {
  * Reference to new assigned weapon.
  */
 Weapon& Weapon::operator=(const Weapon& weapon) {
-    if (this==&weapon){
-        return *this;
-    }
-    delete [] name;
-    name = new char [strlen(weapon.name)+1];
-    strcpy(name,weapon.name);
+    name = weapon.name;
     target = weapon.target;
     hitStrength = weapon.hitStrength;
     return *this;
