@@ -55,7 +55,7 @@ bool Player::isPlayer(const string playerName) const {
  *
  * Increasing player's position by 1.
  */
-void Player::makeStep() {
+virtual void Player::makeStep() {
     position++;
 }
 

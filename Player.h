@@ -17,6 +17,8 @@ class Player {
     int life;
     int strength;
     Weapon weapon;
+
+protected:
     int position;
 
 //-----------------------------------------------------------------------//
@@ -128,7 +130,7 @@ bool isPlayer(const string playerName)const;
  *
  * Increasing player's position by 1.
  */
-void makeStep();
+virtual void makeStep();
 
 /**
  * addLife
