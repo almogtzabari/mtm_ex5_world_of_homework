@@ -2,24 +2,6 @@
 #include "Player.h"
 
 /**
- * Default constructor
- */
-Player::Player(): name(nullptr),level(1),life(1),
-                  strength(1),weapon(),position(0) {
-}
-
-/**
- * Copy constructor
- *
- * @param player - Player to copy.
- */
-Player::Player(const Player& player):
-        name(player.name),level(player.level),
-        life(player.life),strength(player.strength),weapon(player.weapon),
-        position(player.position){
-}
-
-/**
  * Constructor
  *
  * @param name - Name of the player.
@@ -27,36 +9,6 @@ Player::Player(const Player& player):
  */
 Player::Player(const string name, const Weapon& weapon): name(name),
 level(1),life(1),strength(1),weapon(weapon),position(0){
-}
-
-/**
- * Destructor
- *
- * Free all resources of given player.
- */
-Player::~Player() {
-}
-
-/**
- * Operator=
- *
- * @param player - Player to assign.
- *
- * @return
- * Reference to the player after assignment.
- */
-Player& Player::operator=(const Player &player) {
-    if(this==&player){
-        /* Self assignment. */
-        return *this;
-    }
-    name = player.name;
-    life = player.life;
-    strength = player.strength;
-    level = player.level;
-    position = player.position;
-    weapon = player.weapon;
-    return *this;
 }
 
 /**

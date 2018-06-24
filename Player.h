@@ -68,14 +68,14 @@ public:
 /**
  * Default constructor
  */
-Player();
+Player() = default;
 
 /**
  * Copy constructor
  *
  * @param player - Player to copy.
  */
-Player(const Player& player);
+Player(const Player& player) = default;
 
 /**
  * Constructor
@@ -90,7 +90,7 @@ Player(const string name, const Weapon& weapon);
  *
  * Free all resources of given player.
  */
-~Player();
+~Player() = default;
 
 /**
  * Operator=
@@ -100,7 +100,7 @@ Player(const string name, const Weapon& weapon);
  * @return
  * Reference to the player after assignment.
  */
-Player& operator=(const Player& player);
+Player& operator=(const Player& player) = default;
 
 /**
  * nextLevel
