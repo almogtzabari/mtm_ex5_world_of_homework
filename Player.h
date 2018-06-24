@@ -93,7 +93,7 @@ Player(const string name, const Weapon& weapon);
  *
  * Free all resources of given player.
  */
-virtual ~Player() = 0;
+virtual ~Player() = default;
 
 /**
  * Operator=
