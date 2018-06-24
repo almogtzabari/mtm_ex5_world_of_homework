@@ -148,18 +148,13 @@ bool operator>(const Player& player1,const Player& player2){
  * False - Fight failed.
  */
 bool Player::fight(Player &player) {
-    if(position!=player.position || weapon == player.weapon){
+    if(!this->canAttack(player)){
         /* Not in the same position or has same weapon value, therefore
          * shouldn't fight .*/
         return false;
     }
-    /* Players can fight. Now determine who attack who:*/
-    if(weapon>player.weapon){
-        (*this).attack(player);
-    }
-    else {
-        player.attack(*this);
-    }
+    /* Can attack. */
+    this->attack(player);
     return true;
 }
 
@@ -239,7 +234,7 @@ void Player::hitStrength(Player& player)const {
 
 /**
  * canAttack
- * @param player - A player to check.
+ * @param player - A player to attack.
  * @return
  * True if the player can attack, else false.
  */
