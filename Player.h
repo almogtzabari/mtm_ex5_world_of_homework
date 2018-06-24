@@ -16,10 +16,11 @@ class Player {
     int level;
     int life;
     int strength;
-    Weapon weapon;
 
 protected:
     int position;
+    Weapon weapon;
+
 
 //-----------------------------------------------------------------------//
 //                        PRIVATE METHODS:                               //

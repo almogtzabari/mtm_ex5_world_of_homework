@@ -4,6 +4,7 @@
 #define MTM_EX5_WORLD_OF_HOMEWORK_WARRIOR_H
 
 #include "Player.h"
+#include "mtm_exceptions.h"
 using std::string;
 
 
