@@ -3,8 +3,8 @@
 #define MTM_EX5_WORLD_OF_HOMEWORK_WEAPON_H
 
 #include <iostream>
-#include <string>
 using std::ostream;
+using std::string;
 
 enum Target
 {
@@ -35,24 +35,24 @@ public:
  * @param target - Enum which represents the target of the weapon.
  * @param hitStrength - Strength of the weapon.
  */
-Weapon(const char* name,Target target,int hitStrength);
+Weapon(const string name,Target target,int hitStrength);
 
 /**
  * Default constructor
  */
-Weapon();
+Weapon() = default;
 
 /**
  * Destructor
  */
-~Weapon();
+~Weapon() = default;
 
 /**
  * Copy constructor
  *
  * @param weapon - Weapon to copy.
  */
-Weapon(const Weapon& weapon);
+Weapon(const Weapon& weapon) = default;;
 
 /**
  * getTarget
@@ -129,7 +129,7 @@ bool operator>(const Weapon& weapon) const;
  * @return
  * Reference to new assigned weapon.
  */
-Weapon& operator=(const Weapon& weapon);
+Weapon& operator=(const Weapon& weapon) = default;
 
 /**
  * operator<<
@@ -143,4 +143,4 @@ Weapon& operator=(const Weapon& weapon);
 friend ostream& operator<<(ostream& os, const Weapon& weapon);
 };
 
-#endif //MTM_EX4_CALL_OF_MATAM_DUTIES_WEAPON_H
+#endif //MTM_EX5_WORLD_OF_HOMEWORK_WEAPON_H
