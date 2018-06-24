@@ -40,19 +40,19 @@ Weapon(const string name,Target target,int hitStrength);
 /**
  * Default constructor
  */
-Weapon();
+Weapon() = default;
 
 /**
  * Destructor
  */
-~Weapon();
+~Weapon() = default;
 
 /**
  * Copy constructor
  *
  * @param weapon - Weapon to copy.
  */
-Weapon(const Weapon& weapon);
+Weapon(const Weapon& weapon) = default;;
 
 /**
  * getTarget
@@ -129,7 +129,7 @@ bool operator>(const Weapon& weapon) const;
  * @return
  * Reference to new assigned weapon.
  */
-Weapon& operator=(const Weapon& weapon);
+Weapon& operator=(const Weapon& weapon) = default;
 
 /**
  * operator<<

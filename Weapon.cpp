@@ -11,39 +11,6 @@
 Weapon::Weapon(const string name, Target target, int hitStrength) :
         name(name),target(target),hitStrength(hitStrength){}
 
-/**
- * Default constructor
- */
-Weapon::Weapon() : name(){
-}
-
-/**
- * Copy constructor
- *
- * @param weapon - Weapon to copy.
- */
-Weapon::Weapon(const Weapon& weapon) :
-        name(weapon.name),target(weapon.target),
-        hitStrength(weapon.hitStrength){}
-
-/**
- * Destructor
- */
-Weapon::~Weapon() {}
-
-/**
- * Operator=
- * @param weapon - Weapon to assign.
- *
- * @return
- * Reference to new assigned weapon.
- */
-Weapon& Weapon::operator=(const Weapon& weapon) {
-    name = weapon.name;
-    target = weapon.target;
-    hitStrength = weapon.hitStrength;
-    return *this;
-}
 
 /**
  * getTarget
