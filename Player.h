@@ -22,6 +22,9 @@ protected:
     Weapon weapon;
     virtual bool canAttack(const Player& player) const;
 
+    /** distance: returns the distance between two players. */
+    static int distance(const Player& player1 , const Player& player2 );
+
 //-----------------------------------------------------------------------//
 //                        PRIVATE METHODS:                               //
 //-----------------------------------------------------------------------//

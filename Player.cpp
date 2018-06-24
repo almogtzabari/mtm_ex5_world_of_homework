@@ -241,3 +241,19 @@ void Player::hitStrength(Player& player)const {
 bool Player::canAttack(const Player& player) const {
     return position==player.position && weapon>player.weapon;
 }
+
+/**
+ * distance
+ *
+ * @param player1 - First player.
+ * @param player2 - Second player.
+ *
+ * @return
+ * Returns the distance between two players.
+ */
+int Player::distance(const Player &player1, const Player &player2) {
+    int position1 = player1.position;
+    int position2 = player2.position;
+    return (position1-position2)*(position1>position2) +
+           (position2-position1)*(position2>position1);
+}
