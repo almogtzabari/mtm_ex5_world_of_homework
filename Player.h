@@ -20,7 +20,7 @@ class Player {
 protected:
     int position;
     Weapon weapon;
-    virtual bool canAttack (const Player& player) const;
+    virtual bool canAttack(const Player& player) const;
 
 //-----------------------------------------------------------------------//
 //                        PRIVATE METHODS:                               //
