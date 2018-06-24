@@ -1,0 +1,11 @@
+
+#ifndef MTM_EX5_WORLD_OF_HOMEWORK_WIZARD_H
+#define MTM_EX5_WORLD_OF_HOMEWORK_WIZARD_H
+
+
+class Wizard {
+
+};
+
+
+#endif //MTM_EX5_WORLD_OF_HOMEWORK_WIZARD_H

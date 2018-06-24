@@ -1,0 +1,11 @@
+
+#ifndef MTM_EX5_WORLD_OF_HOMEWORK_TROLL_H
+#define MTM_EX5_WORLD_OF_HOMEWORK_TROLL_H
+
+
+class Troll {
+
+};
+
+
+#endif //MTM_EX5_WORLD_OF_HOMEWORK_TROLL_H
