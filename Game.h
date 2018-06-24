@@ -3,6 +3,9 @@
 #define MTM_EX5_WORLD_OF_HOMEWORK_GAME_H
 
 #include "Player.h"
+#include "Warrior.h"
+#include "Wizard.h"
+#include "Troll.h"
 
 enum GameStatus
 {
