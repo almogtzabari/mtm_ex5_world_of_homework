@@ -1,6 +1,6 @@
 
-#ifndef MTM_EX4_CALL_OF_MATAM_DUTIES_PLAYER_H
-#define MTM_EX4_CALL_OF_MATAM_DUTIES_PLAYER_H
+#ifndef MTM_EX5_WORLD_OF_HOMEWORK_PLAYER_H
+#define MTM_EX5_WORLD_OF_HOMEWORK_PLAYER_H
 
 #include "Weapon.h"
 #include <iostream>

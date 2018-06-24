@@ -1,6 +1,6 @@
 
-#ifndef MTM_EX4_CALL_OF_MATAM_DUTIES_WEAPON_H
-#define MTM_EX4_CALL_OF_MATAM_DUTIES_WEAPON_H
+#ifndef MTM_EX5_WORLD_OF_HOMEWORK_WEAPON_H
+#define MTM_EX5_WORLD_OF_HOMEWORK_WEAPON_H
 
 #include <iostream>
 #include <string>
