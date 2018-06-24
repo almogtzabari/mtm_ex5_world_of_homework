@@ -141,7 +141,7 @@ virtual void makeStep();
  *
  * Increasing player's life by 1.
  */
-void addLife();
+virtual void addLife();
 
 /**
  * addStrength
