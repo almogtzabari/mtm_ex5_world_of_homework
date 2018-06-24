@@ -236,3 +236,13 @@ void Player::hitStrength(Player& player)const {
         player.strength=0;
     }
 }
+
+/**
+ * canAttack
+ * @param player - A player to check.
+ * @return
+ * True if the player can attack, else false.
+ */
+bool Player::canAttack(const Player& player) const {
+    return position==player.position && weapon>player.weapon;
+}
