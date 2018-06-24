@@ -50,9 +50,7 @@ Player& Player::operator=(const Player &player) {
         /* Self assignment. */
         return *this;
     }
-    delete[] name;
-    name = new char[strlen(player.name)+1];
-    strcpy(name,player.name);
+    name = player.name;
     life = player.life;
     strength = player.strength;
     level = player.level;
