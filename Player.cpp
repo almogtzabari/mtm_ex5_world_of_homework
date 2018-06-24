@@ -14,10 +14,9 @@ Player::Player(): name(nullptr),level(1),life(1),
  * @param player - Player to copy.
  */
 Player::Player(const Player& player):
-        name(new char[strlen(player.name)+1]),level(player.level),
+        name(player.name),level(player.level),
         life(player.life),strength(player.strength),weapon(player.weapon),
         position(player.position){
-    strcpy(name,player.name);
 }
 
 /**
@@ -26,11 +25,8 @@ Player::Player(const Player& player):
  * @param name - Name of the player.
  * @param weapon - Weapon of the player.
  */
-Player::Player(const char* name, const Weapon& weapon): name(nullptr),
+Player::Player(const string name, const Weapon& weapon): name(name),
 level(1),life(1),strength(1),weapon(weapon),position(0){
-    char* temp_name = new char [strlen(name)+1];
-    strcpy(temp_name,name);
-    this->name = temp_name;
 }
 
 /**
@@ -39,7 +35,6 @@ level(1),life(1),strength(1),weapon(weapon),position(0){
  * Free all resources of given player.
  */
 Player::~Player() {
-    delete[] name;
 }
 
 /**
@@ -101,8 +96,8 @@ void Player::nextLevel() {
  * True - Player's name is the given name.
  * False - Otherwise.
  */
-bool Player::isPlayer(const char *playerName) const {
-    return (strcmp(playerName,name)==0);
+bool Player::isPlayer(const string playerName) const {
+    return playerName==name;
 }
 
 /**
@@ -176,7 +171,7 @@ bool Player::weaponIsWeak(int weaponMinStrength)const {
  * False - Otherwise.
  */
 bool operator<(const Player& player1,const Player& player2) {
-    return (strcmp(player1.name,player2.name)<0);
+    return player1.name<player2.name;
 }
 
 /**
@@ -190,7 +185,7 @@ bool operator<(const Player& player1,const Player& player2) {
  * False - Otherwise.
  */
 bool operator>(const Player& player1,const Player& player2){
-    return (strcmp(player1.name,player2.name)>0);
+    return player1.name>player2.name;
 }
 
 /**

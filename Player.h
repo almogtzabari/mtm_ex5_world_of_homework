@@ -4,7 +4,6 @@
 
 #include "Weapon.h"
 #include <iostream>
-#include <cstring>
 #include <string>
 using std::ostream;
 
@@ -84,7 +83,7 @@ Player(const Player& player);
  * @param name - Name of the player.
  * @param weapon - Weapon of the player.
  */
-Player(const char* name, const Weapon& weapon);
+Player(const string name, const Weapon& weapon);
 
 /**
  * Destructor
@@ -122,7 +121,7 @@ void nextLevel();
  * True - Player's name is the given name.
  * False - Otherwise.
  */
-bool isPlayer(const char* playerName)const;
+bool isPlayer(const string playerName)const;
 
 /**
  * makeStep

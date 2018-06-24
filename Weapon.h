@@ -3,8 +3,8 @@
 #define MTM_EX4_CALL_OF_MATAM_DUTIES_WEAPON_H
 
 #include <iostream>
-#include <cstring>
-using namespace std;
+#include <string>
+using std::ostream;
 
 enum Target
 {
@@ -18,7 +18,7 @@ enum Target
 //-----------------------------------------------------------------------//
 
 class Weapon {
-    char* name;
+    string name;
     Target target;
     int hitStrength;
 
