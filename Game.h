@@ -6,6 +6,8 @@
 #include "Warrior.h"
 #include "Wizard.h"
 #include "Troll.h"
+#include <vector>
+using std::vector;
 
 enum GameStatus
 {
@@ -25,8 +27,7 @@ enum GameStatus
 
 class Game {
     int max_players;
-    int number_of_players;
-    Player** player_array;
+    vector<Player*> players_vector;
 
 
 //-----------------------------------------------------------------------//
@@ -109,14 +110,14 @@ Game(int maxPlayer);
 ~Game();
 
 /**
- * addPlayer
+ * addPlayer - OLD FUNCTION
  *
- * Adding player to game.
+ * Adding an unmounted warrior to the game.
  *
- * @param playerName - Name of the player.
- * @param weaponName - Name of player's weapon.
- * @param target - Target of player's weapon.
- * @param hit_strength - Strength of player's weapon.
+ * @param playerName - Warrior's name.
+ * @param weaponName - Warrior's weapon name.
+ * @param target - Warrior's weapon target.
+ * @param hit_strength - Warrior's weapon hit strength.
  *
  * @return
  * GAME_FULL - Game is full.
@@ -124,8 +125,8 @@ Game(int maxPlayer);
  * SUCCESS - Player added successfully.
  *
  */
-GameStatus addPlayer(const char* playerName,const char* weaponName,
-Target target,int hit_strenth);
+GameStatus addPlayer(const string& playerName,const string& weaponName,
+Target target,int hit_strength);
 
 /**
  * addWizard
@@ -141,6 +142,35 @@ Target target,int hit_strenth);
 void addWizard(string const& playerName, string const& weaponName,
                    Target target, int hitStrength, int range);
 
+/**
+ * addTroll
+ *
+ * Adding a troll to the game.
+ *
+ * @param playerName - Troll's name.
+ * @param weaponName - Troll's weapon name.
+ * @param target - Troll's weapon target.
+ * @param hitStrength - Troll's weapon hit strength.
+ * @param maxLife - Troll's max life.
+ */
+void addTroll(string const& playerName, string const& weaponName,
+              Target target, int hitStrength, int maxLife);
+
+
+/**
+ * addWarrior
+ *
+ * Adding a warrior to the game.
+ *
+ * @param playerName - Warrior's name.
+ * @param weaponName - Warrior's weapon name.
+ * @param target - Warrior's weapon target.
+ * @param hitStrength - Warrior's weapon hit strength.
+ * @param rider - Mounted or not.
+ */
+void addWarrior(string const& playerName, string const& weaponName,
+                    Target target, int hitStrength, bool rider);
+
 
 /**
  * nextLevel
@@ -153,7 +183,7 @@ void addWizard(string const& playerName, string const& weaponName,
  * NAME_DOES_NOT_EXIST - Player with given name does not exist.
  * SUCCESS - Player's level increased successfully.
  */
-GameStatus nextLevel(const char* playerName);
+GameStatus nextLevel(const string& playerName);
 
 /**
  * makeStep
@@ -166,7 +196,7 @@ GameStatus nextLevel(const char* playerName);
  * NAME_DOES_NOT_EXIST - Player with given name does not exist.
  * SUCCESS - Player's position increased successfully.
  */
-GameStatus makeStep(const char* playerName);
+GameStatus makeStep(const string& playerName);
 
 /**
  * addLife
@@ -179,7 +209,7 @@ GameStatus makeStep(const char* playerName);
  * NAME_DOES_NOT_EXIST - Player with given name does not exist.
  * SUCCESS - Player's life increased successfully.
  */
-GameStatus addLife(const char* playerName);
+GameStatus addLife(const string& playerName);
 
 /**
  * addStrength
@@ -194,7 +224,7 @@ GameStatus addLife(const char* playerName);
  * NAME_DOES_NOT_EXIST - Player with given name does not exist.
  * SUCCESS - Player's strength increased successfully.
  */
-GameStatus addStrength(const char* playerName, int strengthToAdd);
+GameStatus addStrength(const string& playerName, int strengthToAdd);
 
 /**
  * removeAllPlayersWithWeakWeapon
@@ -233,6 +263,28 @@ GameStatus fight(const string& playerName1, const string& playerName2);
  * Stream of game details.
  */
 friend ostream& operator<<(ostream& os, Game& game);
+
+template <class FCN>
+bool removePlayersIf(FCN& fcn){
+    int counter=0;
+    for(int i=0; i<players_vector.size(); i++){
+        if(fcn(*players_vector[i])){ //todo: need to cast to const
+            removePlayer(*players_vector[i--]);
+            counter++;
+        }
+    }
+    return counter>0;
+}
+
+class weakerThan{
+    int val;
+    public:
+    explicit weakerThan(int val): val(val){};
+    bool operator()(const Player& player){
+        return player.weaponIsWeak(val);
+    }
+};
+
 };
 
 #endif //MTM_EX5_WORLD_OF_HOMEWORK_GAME_H

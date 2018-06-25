@@ -8,32 +8,26 @@ using std::string;
  *
  * @param maxPlayer - Max player of the game.
  */
-Game::Game(int maxPlayer) : max_players(maxPlayer), number_of_players(0),
-                            player_array( new Player* [maxPlayer]){
-    for(int i=0;i<max_players;i++){
-        player_array[i] = new Player();
-    }
-}
+Game::Game(int maxPlayer) : max_players(maxPlayer),players_vector(0){} //todo: What if maxPlayer<0?
 
 /**
  * Destructor
  */
 Game::~Game() {
-    for (int i=0;i<max_players;i++) {
-        delete player_array[i];
+    for (int i=0;i<players_vector.size();i++) {
+        delete players_vector[i];
     }
-    delete[] player_array;
 }
 
 /**
- * addPlayer
+ * addPlayer - OLD FUNCTION
  *
- * Adding player to game.
+ * Adding an unmounted warrior to the game.
  *
- * @param playerName - Name of the player.
- * @param weaponName - Name of player's weapon.
- * @param target - Target of player's weapon.
- * @param hit_strength - Strength of player's weapon.
+ * @param playerName - Warrior's name.
+ * @param weaponName - Warrior's weapon name.
+ * @param target - Warrior's weapon target.
+ * @param hit_strength - Warrior's weapon hit strength.
  *
  * @return
  * GAME_FULL - Game is full.
@@ -50,7 +44,8 @@ GameStatus Game::addPlayer(const string& playerName, const string& weaponName,
         return NAME_ALREADY_EXISTS;
     }
     Weapon weapon = Weapon(weaponName,target,hit_strength);
-    *player_array[number_of_players++] = Player(playerName,weapon);
+    Player* warrior_ptr = new Warrior(playerName,weapon,false);
+    players_vector.push_back(warrior_ptr);
     return SUCCESS;
 }
 
@@ -68,13 +63,62 @@ GameStatus Game::addPlayer(const string& playerName, const string& weaponName,
 void Game::addWizard(string const &playerName, string const &weaponName,
                      Target target, int hitStrength, int range) {
     if(isFull()){
-        throw mtm::GameFull;
+        throw mtm::GameFull();
     }
     if(playerExist(playerName)){
-        throw mtm::NameAlreadyExists;
+        throw mtm::NameAlreadyExists();
     }
     Weapon weapon = Weapon(weaponName,target,hitStrength);
-    player_array[number_of_players++] = new Wizard(playerName,weapon,range); //todo: memory leak.
+    Player* wizard_ptr = new Wizard(playerName,weapon,range);
+    players_vector.push_back(wizard_ptr);
+}
+
+/**
+ * addTroll
+ *
+ * Adding a troll to the game.
+ *
+ * @param playerName - Troll's name.
+ * @param weaponName - Troll's weapon name.
+ * @param target - Troll's weapon target.
+ * @param hitStrength - Troll's weapon hit strength.
+ * @param maxLife - Troll's max life.
+ */
+void Game::addTroll(string const &playerName, string const &weaponName,
+                    Target target, int hitStrength, int maxLife) {
+    if(isFull()){
+        throw mtm::GameFull();
+    }
+    if(playerExist(playerName)){
+        throw mtm::NameAlreadyExists();
+    }
+    Weapon weapon = Weapon(weaponName,target,hitStrength);
+    Player* troll_ptr = new Troll(playerName,weapon,maxLife);
+    players_vector.push_back(troll_ptr);
+}
+
+/**
+ * addWarrior
+ *
+ * Adding a warrior to the game.
+ *
+ * @param playerName - Warrior's name.
+ * @param weaponName - Warrior's weapon name.
+ * @param target - Warrior's weapon target.
+ * @param hitStrength - Warrior's weapon hit strength.
+ * @param rider - Mounted or not.
+ */
+void Game::addWarrior(string const &playerName, string const &weaponName,
+                      Target target, int hitStrength, bool rider) {
+    if(isFull()){
+        throw mtm::GameFull();
+    }
+    if(playerExist(playerName)){
+        throw mtm::NameAlreadyExists();
+    }
+    Weapon weapon = Weapon(weaponName,target,hitStrength);
+    Player* warrior_ptr = new Warrior(playerName,weapon,rider);
+    players_vector.push_back(warrior_ptr);
 }
 
 /**
@@ -88,12 +132,12 @@ void Game::addWizard(string const &playerName, string const &weaponName,
  * NAME_DOES_NOT_EXIST - Player with given name does not exist.
  * SUCCESS - Player's level increased successfully.
  */
-GameStatus Game::nextLevel(const char *playerName) {
+GameStatus Game::nextLevel(const string& playerName) {
     int player_index = getPlayerIndexByName(playerName);
-    if(player_index==-1){
+    if(player_index==INDEX_NOT_FOUND){
         return NAME_DOES_NOT_EXIST;
     }
-    player_array[player_index]->nextLevel();
+    players_vector[player_index]->nextLevel();
     return SUCCESS;
 }
 
@@ -108,12 +152,12 @@ GameStatus Game::nextLevel(const char *playerName) {
  * NAME_DOES_NOT_EXIST - Player with given name does not exist.
  * SUCCESS - Player's position increased successfully.
  */
-GameStatus Game::makeStep(const char *playerName) {
+GameStatus Game::makeStep(const string& playerName) {
     int player_index = getPlayerIndexByName(playerName);
-    if(player_index==-1){
+    if(player_index==INDEX_NOT_FOUND){
         return NAME_DOES_NOT_EXIST;
     }
-    player_array[player_index]->makeStep();
+    players_vector[player_index]->makeStep();
     return SUCCESS;
 }
 
@@ -128,12 +172,12 @@ GameStatus Game::makeStep(const char *playerName) {
  * NAME_DOES_NOT_EXIST - Player with given name does not exist.
  * SUCCESS - Player's life increased successfully.
  */
-GameStatus Game::addLife(const char *playerName) {
+GameStatus Game::addLife(const string& playerName) {
     int player_index = getPlayerIndexByName(playerName);
-    if(player_index==-1){
+    if(player_index==INDEX_NOT_FOUND){
         return NAME_DOES_NOT_EXIST;
     }
-    player_array[player_index]->addLife();
+    players_vector[player_index]->addLife();
     return SUCCESS;
 }
 
@@ -150,15 +194,15 @@ GameStatus Game::addLife(const char *playerName) {
  * NAME_DOES_NOT_EXIST - Player with given name does not exist.
  * SUCCESS - Player's strength increased successfully.
  */
-GameStatus Game::addStrength(const char *playerName, int strengthToAdd) {
+GameStatus Game::addStrength(const string& playerName, int strengthToAdd) {
     if(strengthToAdd<0){
         return INVALID_PARAM;
     }
     int player_index = getPlayerIndexByName(playerName);
-    if(player_index==-1){
+    if(player_index==INDEX_NOT_FOUND){
         return NAME_DOES_NOT_EXIST;
     }
-    player_array[player_index]->addStrength(strengthToAdd);
+    players_vector[player_index]->addStrength(strengthToAdd);
     return SUCCESS;
 
 }
@@ -175,18 +219,8 @@ GameStatus Game::addStrength(const char *playerName, int strengthToAdd) {
  * False - Players not removed.
  */
 bool Game::removeAllPlayersWithWeakWeapon(int weaponStrength) {
-    int count=0;
-    for (int i=0;i<number_of_players;i++) {
-        if (player_array[i]->weaponIsWeak(weaponStrength)) {
-            removePlayer(*player_array[i--]);
-            /* Notice: removePlayer puts the last valid player in the array
-             * in the position of the removed player. Therefore, after
-             * remove there will be a new player at index i so we need to
-             * check that index again (i--). */
-            count++;
-        }
-    }
-    return count>0;
+    weakerThan tooWeak (weaponStrength);
+    return removePlayersIf(tooWeak);
 }
 
 /**
@@ -207,19 +241,19 @@ GameStatus Game::fight(const string& playerName1, const string& playerName2) {
     int player1_index = getPlayerIndexByName(playerName1);
     int player2_index = getPlayerIndexByName(playerName2);
     if(player1_index==INDEX_NOT_FOUND || player2_index==INDEX_NOT_FOUND){
-        return NAME_DOES_NOT_EXIST;
+        throw mtm::NameDoesNotExist();
     }
-    if(!player_array[player1_index]->fight(*player_array[player2_index])){
+    if(!players_vector[player1_index]->fight(*players_vector[player2_index])){
         return FIGHT_FAILED;
     }
-    if(!player_array[player1_index]->isAlive()){
+    if(!players_vector[player1_index]->isAlive()){
         /* Player1 died. */
-        removePlayer(*player_array[player1_index]);
+        removePlayer(*players_vector[player1_index]);
                 return SUCCESS;
     }
-    if(!player_array[player2_index]->isAlive()){
+    if(!players_vector[player2_index]->isAlive()){
         /* Player2 died. */
-        removePlayer(*player_array[player2_index]);
+        removePlayer(*players_vector[player2_index]);
                 return SUCCESS;
     }
     /* No one died. */
@@ -239,8 +273,8 @@ GameStatus Game::fight(const string& playerName1, const string& playerName2) {
 ostream& operator<<(ostream& os,Game& game){
     /* Sorting players' array before printing. */
     game.sortPlayers();
-    for(int i=0;i<game.number_of_players;i++){
-        os << "player "<<i<<": "<< *game.player_array[i]<<","<< std::endl;
+    for(int i=0;i<game.players_vector.size();i++){
+        os << "player "<<i<<": "<< *game.players_vector[i]<<","<< std::endl;
     }
     return os;
 }
@@ -253,7 +287,7 @@ ostream& operator<<(ostream& os,Game& game){
  * False - Game is not full.
  */
 bool Game::isFull() const {
-    return number_of_players == max_players;
+    return players_vector.size() == max_players;
 }
 
 /**
@@ -266,8 +300,8 @@ bool Game::isFull() const {
  * False - Player with given name does not exists.
  */
 bool Game::playerExist(const string& player_name) const {
-    for(int i=0; i<number_of_players;i++){
-        if(player_array[i]->isPlayer(player_name)){
+    for(int i=0; i<players_vector.size();i++){
+        if(players_vector[i]->isPlayer(player_name)){
             return true;
         }
     }
@@ -282,9 +316,11 @@ bool Game::playerExist(const string& player_name) const {
  * @param player -  Player to remove.
  */
 void Game::removePlayer(const Player& player){
-    for (int i=0;i<number_of_players;i++) {
-        if(player == *player_array[i]){
-            *player_array[i] = *player_array[--number_of_players];
+    for (int i=0;i<players_vector.size();i++) {
+        if(player == *players_vector[i]){
+            delete players_vector[i];
+            players_vector[i]=players_vector[players_vector.size()-1];
+            players_vector.pop_back();
             break;
         }
     }
@@ -300,8 +336,8 @@ void Game::removePlayer(const Player& player){
  * If not found returns -1.
  */
 int Game::getPlayerIndexByName(const string& playerName) const {
-    for(int i=0;i<number_of_players;i++){
-        if(player_array[i]->isPlayer(playerName)){
+    for(int i=0;i<players_vector.size();i++){
+        if(players_vector[i]->isPlayer(playerName)){
             return i;
         }
     }
@@ -328,10 +364,10 @@ void Game::swap(Player* player1_ptr, Player* player2_ptr) {
  * Sorting (bubble sort) players array (only the real players) by name.
  */
 void Game::sortPlayers() {
-    for (int i = 0; i < number_of_players; i++) {
-        for (int j = 0; j < number_of_players - i - 1; j++) {
-            if(*player_array[j]>*player_array[j+1]){
-                swap(player_array[j],player_array[j+1]);
+    for (int i = 0; i < players_vector.size(); i++) {
+        for (int j = 0; j < players_vector.size() - i - 1; j++) {
+            if(*players_vector[j]>*players_vector[j+1]){
+                swap(players_vector[j],players_vector[j+1]);
             }
         }
     }

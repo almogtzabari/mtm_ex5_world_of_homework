@@ -235,6 +235,9 @@ friend bool operator>(const Player& player1,const Player& player2);
  * False - Otherwise.
  */
 friend bool operator==(const Player& player1, const Player& player2);
+
+/** Returns the position of a player. */
+    int getPosition() const;
 };
 
 #endif //MTM_EX5_WORLD_OF_HOMEWORK_PLAYER_H

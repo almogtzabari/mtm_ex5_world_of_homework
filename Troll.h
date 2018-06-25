@@ -10,13 +10,14 @@ class Troll : public Player{
 
 public:
 
-    /**
-     * Constructor
-     * @param name - Troll's name.
-     * @param weapon - Troll's weapon.
-     * @param maxLife - MaxLife of troll.
-     */
-    Troll(string const& name,Weapon const& weapon, int maxLife);
+/**
+ * Constructor
+ * @param name - Troll's name.
+ * @param weapon - Troll's weapon.
+ * @param maxLife - MaxLife of troll.
+ */
+
+Troll(string const& name,Weapon const& weapon, int maxLife);
 
 /**
  * makeStep
@@ -24,8 +25,18 @@ public:
  * Increasing troll's position by 2.
  * Increasing troll's life by 1 (only if life is not full).
  */
-    void makeStep() override ;
+void makeStep() override ;
+
+/**
+ * addLife
+ *
+ * Increasing Troll's life by 1 (only if not reached max life).
+ */
+void addLife() override ;
+
 };
+
+
 
 
 #endif //MTM_EX5_WORLD_OF_HOMEWORK_TROLL_H

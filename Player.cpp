@@ -55,7 +55,7 @@ bool Player::isPlayer(const string playerName) const {
  *
  * Increasing player's position by 1.
  */
-virtual void Player::makeStep() {
+void Player::makeStep() {
     position++;
 }
 
@@ -256,4 +256,9 @@ int Player::distance(const Player &player1, const Player &player2) {
     int position2 = player2.position;
     return (position1-position2)*(position1>position2) +
            (position2-position1)*(position2>position1);
+}
+
+/** Returns the position of a player. */
+int Player::getPosition() const{
+    return position;
 }

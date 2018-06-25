@@ -11,7 +11,7 @@
 Troll::Troll(string const &name, Weapon const &weapon, int maxLife):
 Player(name,weapon),maxLife(maxLife){
     if(maxLife<0){
-        throw mtm::InvalidParam;
+        throw mtm::InvalidParam();
     }
 }
 
@@ -23,8 +23,18 @@ Player(name,weapon),maxLife(maxLife){
  */
 void Troll::makeStep() {
     position+=2;
-    if(maxLife<life){
-        addLife();
+    addLife();
+}
+
+
+/**
+ * addLife
+ *
+ * Increasing Troll's life by 1 (only if not reached max life).
+ */
+void Troll::addLife() {
+    if(life<maxLife){
+        life++;
     }
 }
 
