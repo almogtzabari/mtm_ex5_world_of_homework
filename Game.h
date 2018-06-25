@@ -17,6 +17,8 @@ enum GameStatus
     SUCCESS
 };
 
+#define INDEX_NOT_FOUND -1
+
 //-----------------------------------------------------------------------//
 //                          CLASS GAME:                                  //
 //-----------------------------------------------------------------------//
@@ -49,7 +51,7 @@ bool isFull()const;
  * True - Player with given name exists.
  * False - Player with given name does not exists.
  */
-bool playerExist(const char* player_name)const;
+bool playerExist(const string& player_name)const;
 
 /**
  * removePlayer
@@ -69,7 +71,7 @@ void removePlayer(const Player& player);
  * Index of the player with the given name.
  * If not found returns -1.
  */
-int getPlayerIndexByName(const char *playerName)const;
+int getPlayerIndexByName(const string& playerName)const;
 
 /**
  * swap
@@ -124,6 +126,21 @@ Game(int maxPlayer);
  */
 GameStatus addPlayer(const char* playerName,const char* weaponName,
 Target target,int hit_strenth);
+
+/**
+ * addWizard
+ *
+ * Adding a wizard to the game.
+ *
+ * @param playerName - Wizard's name.
+ * @param weaponName - Wizard's weapon name.
+ * @param target - Wizard's weapon target.
+ * @param hitStrength - Wizard's weapon hit Strength.
+ * @param range - Wizard's range.
+ */
+void addWizard(string const& playerName, string const& weaponName,
+                   Target target, int hitStrength, int range);
+
 
 /**
  * nextLevel
@@ -204,7 +221,7 @@ bool removeAllPlayersWithWeakWeapon (int weaponStrength);
  * NAME_DOES_NOT_EXIST - At least one of the given names does not match any
  * player.
  */
-GameStatus fight(const char* playerName1, const char* playerName2);
+GameStatus fight(const string& playerName1, const string& playerName2);
 
 /**
  * operator<<

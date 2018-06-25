@@ -14,15 +14,17 @@ using std::string;
 class Player {
     string name;
     int level;
-    int life;
     int strength;
 
 protected:
+    int life;
     int position;
     Weapon weapon;
+
+    /** Returns true if *this can attack player. False otherwise. */
     virtual bool canAttack(const Player& player) const;
 
-    /** distance: returns the distance between two players. */
+    /** Returns the distance between two players. */
     static int distance(const Player& player1 , const Player& player2 );
 
 //-----------------------------------------------------------------------//

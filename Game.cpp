@@ -41,7 +41,7 @@ Game::~Game() {
  * SUCCESS - Player added successfully.
  *
  */
-GameStatus Game::addPlayer(const char *playerName, const char *weaponName,
+GameStatus Game::addPlayer(const string& playerName, const string& weaponName,
                            Target target, int hit_strength) {
     if(isFull()){
         return GAME_FULL;
@@ -52,6 +52,29 @@ GameStatus Game::addPlayer(const char *playerName, const char *weaponName,
     Weapon weapon = Weapon(weaponName,target,hit_strength);
     *player_array[number_of_players++] = Player(playerName,weapon);
     return SUCCESS;
+}
+
+/**
+ * addWizard
+ *
+ * Adding a wizard to the game.
+ *
+ * @param playerName - Wizard's name.
+ * @param weaponName - Wizard's weapon name.
+ * @param target - Wizard's weapon target.
+ * @param hitStrength - Wizard's weapon hit Strength.
+ * @param range - Wizard's range.
+ */
+void Game::addWizard(string const &playerName, string const &weaponName,
+                     Target target, int hitStrength, int range) {
+    if(isFull()){
+        throw mtm::GameFull;
+    }
+    if(playerExist(playerName)){
+        throw mtm::NameAlreadyExists;
+    }
+    Weapon weapon = Weapon(weaponName,target,hitStrength);
+    player_array[number_of_players++] = new Wizard(playerName,weapon,range); //todo: memory leak.
 }
 
 /**
@@ -180,10 +203,10 @@ bool Game::removeAllPlayersWithWeakWeapon(int weaponStrength) {
  *
  *
  */
-GameStatus Game::fight(const char *playerName1, const char *playerName2) {
+GameStatus Game::fight(const string& playerName1, const string& playerName2) {
     int player1_index = getPlayerIndexByName(playerName1);
     int player2_index = getPlayerIndexByName(playerName2);
-    if(player1_index==-1 || player2_index==-1){
+    if(player1_index==INDEX_NOT_FOUND || player2_index==INDEX_NOT_FOUND){
         return NAME_DOES_NOT_EXIST;
     }
     if(!player_array[player1_index]->fight(*player_array[player2_index])){
@@ -242,7 +265,7 @@ bool Game::isFull() const {
  * True - Player with given name exists.
  * False - Player with given name does not exists.
  */
-bool Game::playerExist(const char *player_name) const {
+bool Game::playerExist(const string& player_name) const {
     for(int i=0; i<number_of_players;i++){
         if(player_array[i]->isPlayer(player_name)){
             return true;
@@ -276,13 +299,13 @@ void Game::removePlayer(const Player& player){
  * Index of the player with the given name.
  * If not found returns -1.
  */
-int Game::getPlayerIndexByName(const char *playerName) const {
+int Game::getPlayerIndexByName(const string& playerName) const {
     for(int i=0;i<number_of_players;i++){
         if(player_array[i]->isPlayer(playerName)){
             return i;
         }
     }
-    return -1;
+    return INDEX_NOT_FOUND;
 }
 
 /**
