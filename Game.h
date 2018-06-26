@@ -16,6 +16,7 @@ enum GameStatus
     GAME_FULL,
     NAME_DOES_NOT_EXIST,
     FIGHT_FAILED,
+    ILLEGAL_WEAPON,
     SUCCESS
 };
 

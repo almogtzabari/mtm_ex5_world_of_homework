@@ -1,4 +1,5 @@
 
+
 #include "Game.h"
 using std::ostream;
 using std::string;
@@ -44,8 +45,13 @@ GameStatus Game::addPlayer(const string& playerName, const string& weaponName,
         return NAME_ALREADY_EXISTS;
     }
     Weapon weapon = Weapon(weaponName,target,hit_strength);
-    Player* warrior_ptr = new Warrior(playerName,weapon,false);
-    players_vector.push_back(warrior_ptr);
+    try{
+        Player* warrior_ptr = new Warrior(playerName,weapon,false);
+        players_vector.push_back(warrior_ptr);
+    }
+    catch(mtm::IllegalWeapon& e){
+        return ILLEGAL_WEAPON;
+    }
     return SUCCESS;
 }
 
@@ -244,7 +250,10 @@ GameStatus Game::fight(const string& playerName1, const string& playerName2) {
         throw mtm::NameDoesNotExist();
     }
     if(!players_vector[player1_index]->fight(*players_vector[player2_index])){
-        return FIGHT_FAILED;
+        if(!players_vector[player2_index]->fight(*players_vector[player1_index])){
+            return FIGHT_FAILED;
+        }
+        return SUCCESS;
     }
     if(!players_vector[player1_index]->isAlive()){
         /* Player1 died. */

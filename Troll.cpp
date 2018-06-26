@@ -10,7 +10,7 @@
  */
 Troll::Troll(string const &name, Weapon const &weapon, int maxLife):
 Player(name,weapon),maxLife(maxLife){
-    if(maxLife<0){
+    if(maxLife<=0){
         throw mtm::InvalidParam();
     }
 }
