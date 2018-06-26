@@ -253,7 +253,6 @@ GameStatus Game::fight(const string& playerName1, const string& playerName2) {
         if(!players_vector[player2_index]->fight(*players_vector[player1_index])){
             return FIGHT_FAILED;
         }
-        return SUCCESS;
     }
     if(!players_vector[player1_index]->isAlive()){
         /* Player1 died. */

@@ -24,7 +24,8 @@ Player(name,weapon),range(range){
     * True if the wizard can attack, else false.
     */
 bool Wizard::canAttack (const Player& player) const{
-    if (position==player.getPosition() || distance(*this,player)>range){
+    if (position==player.getPosition() || distance(*this,player)>range ||
+        !player.weaponIsWeak(weapon.getValue())){
         return false;
     }
     return true;
