@@ -91,7 +91,7 @@ Player(const Player& player) = default;
  * @param name - Name of the player.
  * @param weapon - Weapon of the player.
  */
-Player(const string name, const Weapon& weapon);
+Player(const string& name, const Weapon& weapon);
 
 /**
  * Destructor
