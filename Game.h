@@ -276,22 +276,24 @@ template <class FCN>
 bool removePlayersIf(FCN& fcn){
     int counter=0;
     for(int i=0; i<players_vector.size(); i++){
-        if(fcn(static_cast<const Player&>(*players_vector[i]))){
+        if(fcn(static_cast<const Player&>(*players_vector[i]))){ //todo: need to cast to const
             removePlayer(*players_vector[i--]);
             counter++;
         }
     }
     return counter>0;
 }
-
 /**
  * weakerThan
+ *
+ * A class that will be used as a functor. This class will be used for
+ * function removeAllPlayersWithWeakWeapon .
  */
 class weakerThan{
     int val;
     public:
     explicit weakerThan(int val): val(val){};
-    bool operator()(const Player& player){
+    bool operator()(const Player& player) const{
         return player.weaponIsWeak(val);
     }
 };
