@@ -83,7 +83,7 @@ int getPlayerIndexByName(const string& playerName)const;
  * @param player1_ptr - Pointer of first player.
  * @param player2_ptr - Pointer of second player.
  */
-void swap(Player* player1_ptr, Player* player2_ptr);
+void swap(Player** player1_ptr, Player** player2_ptr);
 
 /**
  * sortPlayers

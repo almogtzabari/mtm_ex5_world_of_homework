@@ -360,8 +360,8 @@ int Game::getPlayerIndexByName(const string& playerName) const {
  * @param player1_ptr - Pointer of first player.
  * @param player2_ptr - Pointer of second player.
  */
-void Game::swap(Player* player1_ptr, Player* player2_ptr) {
-    Player temp = *player1_ptr;
+void Game::swap(Player** player1_ptr, Player** player2_ptr) {
+    Player* temp = *player1_ptr;
     *player1_ptr = *player2_ptr;
     *player2_ptr = temp;
 }
@@ -375,7 +375,7 @@ void Game::sortPlayers() {
     for (int i = 0; i < players_vector.size(); i++) {
         for (int j = 0; j < players_vector.size() - i - 1; j++) {
             if(*players_vector[j]>*players_vector[j+1]){
-                swap(players_vector[j],players_vector[j+1]);
+                swap(&players_vector[j],&players_vector[j+1]);
             }
         }
     }
