@@ -151,7 +151,11 @@ bool Player::fight(Player &player) {
     if(!this->canAttack(player)){
         /* Not in the same position or has same weapon value, therefore
          * shouldn't fight .*/
-        return false;
+        if(!player.canAttack(*this)){
+            return false;
+        }
+        player.attack(*this);
+        return true;
     }
     /* Can attack. */
     this->attack(player);
