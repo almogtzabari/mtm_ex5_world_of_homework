@@ -264,11 +264,19 @@ GameStatus fight(const string& playerName1, const string& playerName2);
  */
 friend ostream& operator<<(ostream& os, Game& game);
 
+/**
+ * This template function will activate operator() on all the players in
+ * the players vector and will remove all players that returned true.
+ * @tparam FCN - A given function or functor.
+ * @param fcn - A given function or functor.
+ * @return
+ * True if at least 1 player was removed, else false.
+ */
 template <class FCN>
 bool removePlayersIf(FCN& fcn){
     int counter=0;
     for(int i=0; i<players_vector.size(); i++){
-        if(fcn(*players_vector[i])){ //todo: need to cast to const
+        if(fcn(static_cast<const Player&>(*players_vector[i]))){
             removePlayer(*players_vector[i--]);
             counter++;
         }
@@ -276,6 +284,9 @@ bool removePlayersIf(FCN& fcn){
     return counter>0;
 }
 
+/**
+ * weakerThan
+ */
 class weakerThan{
     int val;
     public:

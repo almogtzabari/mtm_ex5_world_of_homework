@@ -22,6 +22,12 @@ public:
  */
 Warrior(string const& name, Weapon const& weapon, bool rider);
 
+/**
+ * makeStep
+ *
+ * If the warrior is mounted increasing his position by 5, if not
+ * increasing position by 1.
+ */
 void makeStep() override ;
 
 
