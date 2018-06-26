@@ -250,17 +250,17 @@ GameStatus Game::fight(const string& playerName1, const string& playerName2) {
         throw mtm::NameDoesNotExist();
     }
     if(!players_vector[player1_index]->fight(*players_vector[player2_index])){
-            return FIGHT_FAILED;
+        return FIGHT_FAILED;
     }
     if(!players_vector[player1_index]->isAlive()){
         /* Player1 died. */
         removePlayer(*players_vector[player1_index]);
-                return SUCCESS;
+        return SUCCESS;
     }
     if(!players_vector[player2_index]->isAlive()){
         /* Player2 died. */
         removePlayer(*players_vector[player2_index]);
-                return SUCCESS;
+        return SUCCESS;
     }
     /* No one died. */
     return SUCCESS;
