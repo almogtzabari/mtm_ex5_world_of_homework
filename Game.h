@@ -276,7 +276,7 @@ friend ostream& operator<<(ostream& os, Game& game);
 template <class FCN>
 bool removePlayersIf(FCN& fcn){
     int counter=0;
-    for(int i=0; i<players_vector.size(); i++){
+    for(unsigned int i=0; i<players_vector.size(); i++){
         if(fcn(static_cast<const Player&>(*players_vector[i]))){ //todo: need to cast to const
             removePlayer(*players_vector[i--]);
             counter++;

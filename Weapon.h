@@ -52,7 +52,7 @@ Weapon() = default;
  *
  * @param weapon - Weapon to copy.
  */
-Weapon(const Weapon& weapon) = default;;
+Weapon(const Weapon& weapon) = default;
 
 /**
  * getTarget

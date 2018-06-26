@@ -8,7 +8,7 @@
  * @param weapon - Weapon of the player.
  */
 Player::Player(const string name, const Weapon& weapon): name(name),
-level(1),life(1),strength(1),weapon(weapon),position(0){
+level(1),strength(1),life(1),position(0),weapon(weapon){
 }
 
 /**

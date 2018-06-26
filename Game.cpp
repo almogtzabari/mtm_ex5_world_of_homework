@@ -15,7 +15,7 @@ Game::Game(int maxPlayer) : max_players(maxPlayer),players_vector(0){} //todo: W
  * Destructor
  */
 Game::~Game() {
-    for (int i=0;i<players_vector.size();i++) {
+    for (unsigned int i=0;i<players_vector.size();i++) {
         delete players_vector[i];
     }
 }
@@ -279,7 +279,7 @@ GameStatus Game::fight(const string& playerName1, const string& playerName2) {
 ostream& operator<<(ostream& os,Game& game){
     /* Sorting players' array before printing. */
     game.sortPlayers();
-    for(int i=0;i<game.players_vector.size();i++){
+    for(unsigned int i=0;i<game.players_vector.size();i++){
         os << "player "<<i<<": "<< *game.players_vector[i]<<","<< std::endl;
     }
     return os;
@@ -293,7 +293,7 @@ ostream& operator<<(ostream& os,Game& game){
  * False - Game is not full.
  */
 bool Game::isFull() const {
-    return players_vector.size() == max_players;
+    return players_vector.size() == (unsigned int)max_players;
 }
 
 /**
@@ -306,7 +306,7 @@ bool Game::isFull() const {
  * False - Player with given name does not exists.
  */
 bool Game::playerExist(const string& player_name) const {
-    for(int i=0; i<players_vector.size();i++){
+    for(unsigned int i=0; i<players_vector.size();i++){
         if(players_vector[i]->isPlayer(player_name)){
             return true;
         }
@@ -322,7 +322,7 @@ bool Game::playerExist(const string& player_name) const {
  * @param player -  Player to remove.
  */
 void Game::removePlayer(const Player& player){
-    for (int i=0;i<players_vector.size();i++) {
+    for (unsigned int i=0;i<players_vector.size();i++) {
         if(player == *players_vector[i]){
             delete players_vector[i];
             players_vector[i]=players_vector[players_vector.size()-1];
@@ -342,7 +342,7 @@ void Game::removePlayer(const Player& player){
  * If not found returns -1.
  */
 int Game::getPlayerIndexByName(const string& playerName) const {
-    for(int i=0;i<players_vector.size();i++){
+    for(unsigned int i=0;i<players_vector.size();i++){
         if(players_vector[i]->isPlayer(playerName)){
             return i;
         }
@@ -370,8 +370,8 @@ void Game::swap(Player** player1_ptr, Player** player2_ptr) {
  * Sorting (bubble sort) players array (only the real players) by name.
  */
 void Game::sortPlayers() {
-    for (int i = 0; i < players_vector.size(); i++) {
-        for (int j = 0; j < players_vector.size() - i - 1; j++) {
+    for (unsigned int i = 0; i < players_vector.size(); i++) {
+        for (unsigned int j = 0; j < players_vector.size() - i - 1; j++) {
             if(*players_vector[j]>*players_vector[j+1]){
                 swap(&players_vector[j],&players_vector[j+1]);
             }
